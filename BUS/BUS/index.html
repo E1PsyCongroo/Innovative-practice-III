@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./static/css/base.css" rel="stylesheet">
+    <link href="./static/css/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.font.im/css?family=Source+Serif+Pro%7CLato%7CInconsolata" rel="stylesheet"
+        type="text/css">
+    <title> BUS </title>
+    <!-- browser favicon -->
+    <link rel="shortcut icon" href="./static/img/favicon.png">
+    <style>
+        .font-sans {
+            font-family: 'Lato', 'SimHei', 'STHeiti', 'SimHei', 'Serif';
+        }
+
+        .font-serif {
+            font-family: 'Source Serif Pro', 'Songti SC', 'SimSun', 'Serif', serif;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="https://jyywiki.cn/static/katex/katex.min.css">
+    <script defer src="https://jyywiki.cn/static/katex/katex.min.js"></script> -->
+    <link rel="stylesheet" href="./static/katex/katex.min.css">
+    <script defer src="./static/katex/katex.min.js"></script>
+    <!-- <script defer src="https://jyywiki.cn/static/katex/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+        crossorigin="anonymous"></script> -->
+    <script defer src="./static/katex/auto-render.min.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                // customised options
+                // &#8226; auto-render specific keys, e.g.:
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                // &#8226; rendering keys, e.g.:
+                throwOnError: false
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="./static/reveal/reveal.css">
+    <link rel="stylesheet" href="./static/reveal/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="./static/jyy/jyy.css">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <div class="reveal">
+        <div class="slides">
+            <section><section><div class="center middle"><div style="width:100%"><div><h1 id="bus" class="text-2xl mt-2 font-sans">总线 (BUS)</h1><p class="font-serif my-1">
+    <include src="Slides_Author">
+        <div class="py-16">
+            <p class="font-serif my-1">
+                <a href="" class=" text-amber-900">
+                    晓阳
+                </a>
+            </p>
+        </div>
+        <div class="row">
+            <p class="font-serif my-1"/>
+            
+            <div class="author-affiliation">
+                <a href="https://www.hdu.edu.cn/" class=" text-amber-900">
+                    <p class="font-serif my-1">
+                        HDU
+                    </p>
+                    <img class="inline-img h-24" src="./static/img/750bceeae49642cbb978618a6aabd0ed.png" style="display: inline-block;"/>
+                </a>
+            </div>
+            
+        </div>
+    </include>
+</p></div></div></div></section></section><section><section><div><h2 id="bus" class="text-xl mt-2 pb-2 font-sans">什么是总线 (BUS)</h2>
+<blockquote>
+<p class="font-serif my-1">In computer architecture, a bus is a communication system that transfers data between components inside a computer, or between computers. This expression covers all related hardware components and software, including communication protocols.</p>
+</blockquote>
+<ul class="list-disc font-serif">
+<li class="ml-8">抽象的是: 总线并不是一条"线"，而是一种通信协议规范，就像 ISA 一样，是需要软件硬件协同的一种规范。</li>
+</ul><div class="fragment" data-fragment-index="1"><ul class="list-disc font-serif">
+<li class="ml-8">更抽象的是: BUS 属实让人眼前一黑，读读机翻你就老实了，虽然确实是数据的"公交车"🤣</li>
+</ul>
+<p class="font-serif my-1">广义总线:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">USB (通用串行总线) / 雷电接口 (Thunderbolt interface)</li>
+<li class="ml-8">TCP/IP</li>
+</ul></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="-" class="text-2xl mt-2 font-sans">狭义的总线 - 硬件模块间的通信协议</h1></div></div></div></section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">为什么需要总线</h2><div class="fragment" data-fragment-index="1"><h3 id="_1"><red>模块间需要通信</red></h3>
+<ul class="list-disc font-serif">
+<li class="ml-8">不同的计算机通过互联网通信</li>
+</ul></div><div class="fragment" data-fragment-index="2"><ul class="list-disc font-serif">
+<li class="ml-8">软件之间需要通信(前端、后端)</li>
+</ul></div><div class="fragment" data-fragment-index="3"><div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="nb">+-----+</span><span class="c">      </span><span class="nb">+-------------------+</span><span class="c">      </span><span class="nb">+---------------+</span>
+<span class="c">| CPU | </span><span class="nv">&lt;</span><span class="c">==</span><span class="nv">&gt;</span><span class="c"> | Memory Controller | </span><span class="nv">&lt;</span><span class="c">==</span><span class="nv">&gt;</span><span class="c"> | Memory Device |</span>
+<span class="nb">+-----+</span><span class="c">      </span><span class="nb">+-------------------+</span><span class="c">      </span><span class="nb">+---------------+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8"><strong>CPU和内存控制器通过一套协议通信</strong></li>
+<li class="ml-8"><strong>内存控制器和内存颗粒通过另一套协议通信</strong></li>
+</ul></div><div class="fragment" data-fragment-index="4"><div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w">           </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">IFU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">inst</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IDU</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w">           </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8"><strong>CPU内部模块也需要通过信号通信</strong></li>
+</ul></div></div></section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">最简单的总线</h2>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w">           </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">IFU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">inst</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IDU</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w">           </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<p class="font-serif my-1">主动发起通信的模块叫master(主设备), 响应通信的模块叫slave(从设备)</p>
+<p class="font-serif my-1">其实背后藏着一套通信协议</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">master(IFU)往slave(IDU)发送消息(当前指令inst)</li>
+<li class="ml-8">双方约定, 只要master发送, slave立即收到</li>
+</ul><div class="fragment" data-fragment-index="1"><ul class="list-disc font-serif">
+<li class="ml-8">IFU并非每周期都能取到指令<ul class="list-disc font-serif">
+<li class="ml-8"><strong>IDU需要等待IFU完成取指后, 才能进行译码</strong></li>
+</ul>
+</li>
+</ul></div></div></section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">集中式控制</h2>
+<blockquote>
+<p class="font-serif my-1">也就是常见的课本上的处理器</p>
+</blockquote>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="c">                   </span><span class="nb">+--------------+</span>
+<span class="c">   </span><span class="nb">+-------------</span><span class="nv">&gt;</span><span class="c"> |  Controller  | </span><span class="nv">&lt;</span><span class="nb">--------------+</span>
+<span class="c">   |               </span><span class="nb">+--------------+</span><span class="c">                |</span>
+<span class="c">   |                ^            ^                 |</span>
+<span class="c">   v                v            v                 v</span>
+<span class="nb">+-----+</span><span class="c">  inst   </span><span class="nb">+-----+</span><span class="c">   </span><span class="nt">...</span><span class="c">   </span><span class="nb">+-----+</span><span class="c">   </span><span class="nt">...</span><span class="c">   </span><span class="nb">+-----+</span>
+<span class="c">| IFU | </span><span class="nb">------</span><span class="nv">&gt;</span><span class="c"> | IDU | </span><span class="nb">------</span><span class="nv">&gt;</span><span class="c"> | EXU | </span><span class="nb">------</span><span class="nv">&gt;</span><span class="c"> | WBU |</span>
+<span class="nb">+-----+</span><span class="c">         </span><span class="nb">+-----+</span><span class="c">         </span><span class="nb">+-----+</span><span class="c">         </span><span class="nb">+-----+</span>
+</code></pre></div>
+
+<p class="font-serif my-1">集中式控制 - 控制器需收集所有模块状态, 并决定如何控制各模块工作</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">可扩展性较低, 随着模块数量和复杂度提升, 控制器越来越难设计</li>
+<li class="ml-8">各模块可能会工作多个周期(访存延迟, 除法器)/冲刷/阻塞</li>
+</ul></div></section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">更真实的处理器</h2>
+<p class="font-serif my-1">IFU 在一些周期可能输出无效的<code>inst</code>，IDU 在一些周期可能无法处理即将到来的<code>inst</code>:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">slave(IDU) 需要知道什么时候 master(IFU) 的信号<code>inst</code>有效</li>
+<li class="ml-8">master(IFU) 需要知道什么时候 slave(IDU) 空闲</li>
+</ul><div class="fragment" data-fragment-index="1"><div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w"> </span><span class="n">inst</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">IFU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IDU</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w"> </span><span class="o">&lt;---</span><span class="w"> </span><span class="n">ready</span><span class="w"> </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8">需要添加valid(有效)和ready(就绪)信号,  通信协议如下<ul class="list-disc font-serif">
+<li class="ml-8">master(IFU)往slave(IDU)发送消息(当前指令inst)</li>
+<li class="ml-8">双方约定, 若master发送, 则ready有效时, 才认为slave收到</li>
+<li class="ml-8">上述发送行为仅在valid有效时发生</li>
+</ul>
+</li>
+</ul></div></div></section><section><div><h2 id="2" class="text-xl mt-2 pb-2 font-sans">更真实的处理器 (2)——分布式控制</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8">异步总线:<ul class="list-disc font-serif">
+<li class="ml-8">当 valid &amp; ready 时，称为"握手"🤝</li>
+<li class="ml-8">当 valid &amp; !ready 时，master 需要保持信号</li>
+<li class="ml-8">master 的 valid 不应该依赖于 slave 的 ready，反之亦然</li>
+</ul>
+</li>
+</ul><div class="fragment" data-fragment-index="1"><div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="nb">+-----+</span><span class="c"> inst  </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> </span><span class="nb">+-----+</span><span class="c">  </span><span class="nt">...</span><span class="c">  </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> </span><span class="nb">+-----+</span><span class="c">  </span><span class="nt">...</span><span class="c">  </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> </span><span class="nb">+-----+</span>
+<span class="c">| IFU | valid </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> | IDU | valid </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> | EXU | valid </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> | WBU |</span>
+<span class="nb">+-----+</span><span class="c"> </span><span class="nv">&lt;</span><span class="nb">---</span><span class="c"> ready </span><span class="nb">+-----+</span><span class="c"> </span><span class="nv">&lt;</span><span class="nb">---</span><span class="c"> ready </span><span class="nb">+-----+</span><span class="c"> </span><span class="nv">&lt;</span><span class="nb">---</span><span class="c"> ready </span><span class="nb">+-----+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8">单周期 - 每周期上游发送的消息均有效, 下游均就绪接收新消息</li>
+<li class="ml-8">多周期 - 模块空闲时消息无效, 模块忙碌时不接收新消息, IFU收到WBU的完成信号后再取下一条指令</li>
+<li class="ml-8">流水线 - IFU一直取指, 各模块每个周期都尝试往下游发送消息</li>
+<li class="ml-8">乱序执行 - 下游模块有一个队列, 上游只需要把消息发到队列, 即可继续处理新消息</li>
+</ul></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="_1" class="text-2xl mt-2 font-sans">系统总线</h1>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>                    +-----+      +-----+
+                    | CPU | &lt;==&gt; | DEV |
+                    +-----+      +-----+
+</code></pre></div></div></div></div></section><section data-auto-animate><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">并行总线</h2>
+<p class="font-serif my-1">系统总线 = 连接处理器和存储器以及设备之间的总线</p>
+<p class="font-serif my-1">读操作：</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w"> </span><span class="n">araddr</span><span class="p">[</span><span class="n">log2</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">arvalid</span><span class="w">             </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;---</span><span class="w">             </span><span class="n">arready</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;---</span><span class="w">         </span><span class="n">rdata</span><span class="p">[</span><span class="mi">31</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEM</span><span class="w"> </span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;---</span><span class="w">              </span><span class="n">rvalid</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">rready</span><span class="w">              </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w">                          </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8">master发出araddr的时刻无法提前确定</li>
+<li class="ml-8">slave也不一定总是准备好接受读取请求</li>
+<li class="ml-8">slave读出rdata的时刻无法提前确定</li>
+<li class="ml-8">master也不一定总是准备好接收slave读出的数据</li>
+</ul></div></section><section data-auto-animate><div><p class="font-serif my-1">写操作:</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w">                          </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">waddr</span><span class="p">[</span><span class="n">log2</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">wdata</span><span class="p">[</span><span class="mi">31</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">         </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEM</span><span class="w"> </span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">wmask</span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">          </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">wvalid</span><span class="w">              </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w">                          </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<p class="font-serif my-1">同理, 写请求也需要握手</p>
+<p class="font-serif my-1">错误请求: 读写请求可能会出错, 例如超过存储区间的边界</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w"> </span><span class="o">&lt;---</span><span class="w">          </span><span class="n">bresp</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;---</span><span class="w">              </span><span class="n">bvalid</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEM</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w"> </span><span class="n">bready</span><span class="w">              </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">+-----+</span>
+</code></pre></div></div></section><section><div><h2 id="axi-lite" class="text-xl mt-2 pb-2 font-sans"><a href="https://www.arm.com/architecture/system-architectures/amba/amba-4">AXI-Lite 总线</a></h2>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="n">araddr</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">-+</span><span class="w">             </span><span class="n">awaddr</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">-+</span>
+<span class="n">arvalid</span><span class="w"> </span><span class="o">---&gt;</span><span class="w">  </span><span class="n">AR</span><span class="w">            </span><span class="n">awvalid</span><span class="w"> </span><span class="o">---&gt;</span><span class="w">  </span><span class="n">AW</span>
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">arready</span><span class="w"> </span><span class="o">-+</span><span class="w">             </span><span class="o">&lt;---</span><span class="w"> </span><span class="n">awready</span><span class="w"> </span><span class="o">-+</span>
+
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">rdata</span><span class="w">   </span><span class="o">-+</span><span class="w">             </span><span class="n">wdata</span><span class="w">   </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">-+</span>
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">rresp</span><span class="w">    </span><span class="o">|</span><span class="w">             </span><span class="n">wstrb</span><span class="w">   </span><span class="o">---&gt;</span><span class="w">  </span><span class="o">|</span>
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">rvalid</span><span class="w">   </span><span class="n">R</span><span class="w">             </span><span class="n">wvalid</span><span class="w">  </span><span class="o">---&gt;</span><span class="w">  </span><span class="n">W</span>
+<span class="n">rready</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">-+</span><span class="w">             </span><span class="o">&lt;---</span><span class="w"> </span><span class="n">wready</span><span class="w">  </span><span class="o">-+</span>
+
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">bresp</span><span class="w">   </span><span class="o">-+</span>
+<span class="o">&lt;---</span><span class="w"> </span><span class="n">bvalid</span><span class="w">   </span><span class="n">B</span>
+<span class="n">bready</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">-+</span>
+</code></pre></div>
+
+<ul class="list-disc font-serif">
+<li class="ml-8">独立的地址/控制和数据阶段</li>
+<li class="ml-8">支持使用字节选通的未对齐数据传输。</li>
+<li class="ml-8">独立的写入和读取数据通道，可提供低成本的直接内存访问(DMA)</li>
+</ul></div></section></section><section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">串行总线</h2>
+<p class="font-serif my-1">缺点:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">传输效率低: 数据需要多周期传输</li>
+<li class="ml-8">逻辑复杂: 需要处理时钟同步等问题</li>
+</ul>
+<p class="font-serif my-1">优点:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">布线简单: 导出的引脚较少，降低了布线复杂性和成本</li>
+<li class="ml-8">抗干扰能力强: 信号干扰较小</li>
+</ul></div></section><section><div><h2 id="uart" class="text-xl mt-2 pb-2 font-sans">UART</h2>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="o">+-----+</span><span class="w">             </span><span class="o">+-----+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">TX</span><span class="w">  </span><span class="o">|</span><span class="w">  </span><span class="kt">data</span><span class="w">  </span><span class="o">---&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">RX</span><span class="w">  </span><span class="o">|</span>
+<span class="o">+-----+</span><span class="w">             </span><span class="o">+-----+</span>
+</code></pre></div>
+
+<p class="font-serif my-1">UART把数据的字节按照比特顺序发送。</p>
+<p class="font-serif my-1">另一端的UART把比特组装为字节。</p>
+<p class="font-serif my-1">通信可以是单工、全双工或半双工。</p>
+<p class="font-serif my-1"><img alt="数据帧" src="./static/img/566380ea0aea443691258ca12232305e.png"/></p></div></section><section><div><h2 id="spi" class="text-xl mt-2 pb-2 font-sans">SPI</h2>
+<p class="font-serif my-1"><img alt="SPI" src="./static/img/cd7066512c9b4848a547dfe85bdc3fbe.svg"/></p>
+<p class="font-serif my-1">SPI总线总共只有4种信号:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">SCK - master发出的时钟信号, 只有1位</li>
+<li class="ml-8">SS - master发出的选择信号, 用于指定通信对象, 每个slave对应1位</li>
+<li class="ml-8">MOSI - master向slave通信的数据线, 只有1位</li>
+<li class="ml-8">MISO - slave向master通信的数据线, 只有1位</li>
+</ul>
+<p class="font-serif my-1">SPI 总线是全双工的。</p></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="_1" class="text-2xl mt-2 font-sans">片间总线协议</h1></div></div></div></section><section><div><h2 id="soc-system-on-chip" class="text-xl mt-2 pb-2 font-sans">SoC = System On Chip</h2>
+<p class="font-serif my-1">CPU != System</p>
+<p class="font-serif my-1">SoC = CPU + 总线 + 设备(含内存)</p>
+<p class="font-serif my-1">一个现实 - 设备的属性五花八门</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">地址空间, 访问位宽, 接口协议, 可写, 可执行, 非对齐访问, 原子操作, 突发访问, 中断, DMA, 可缓存, 幂等性…</li>
+</ul>
+<p class="font-serif my-1">实际中还要考虑电气特性</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">有的设备无法在高频工作, 需要实现多个时钟域之间的异步通信</li>
+<li class="ml-8">有的设备需要固定频率的时钟作为参考时钟</li>
+<li class="ml-8">有的设备对复位顺序的先后有要求</li>
+</ul></div></section><section><div><h2 id="_1" class="text-xl mt-2 pb-2 font-sans">将总线延伸到片外</h2>
+<p class="font-serif my-1">一个想法: 将总线延伸到芯片外部</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">两个芯片可以在遵循同一套通信协议的情况下互相通信</li>
+<li class="ml-8">一个芯片就可以访问其他芯片成品上的设备</li>
+<li class="ml-8">后者一方面不占用流片面积, 从而节省流片成本</li>
+<li class="ml-8">另一方面也可以降低验证的复杂度和流片风险</li>
+</ul>
+<p class="font-serif my-1">但是需要减少引脚导出的数量:</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">对引脚进行分时复用: 综合并行总线和串行总线的特点<ul class="list-disc font-serif">
+<li class="ml-8">每次传输AXI请求的一部分, 通过多个周期来传输一个完整的AXI请求</li>
+</ul>
+</li>
+</ul></div></section><section><div><h2 id="chiplink" class="text-xl mt-2 pb-2 font-sans">ChipLink</h2>
+<p class="font-serif my-1">全双工, 单方向除了32个数据信号之外, 还有时钟, 复位和有效信号</p>
+<p class="font-serif my-1">标准的ChipLink协议需要占用70个引脚</p>
+<p class="font-serif my-1">可通过桥接转换实现AXI的片间传输</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="nb">-------------------+</span><span class="c">     </span><span class="nb">+-------------------</span>
+<span class="c">            chip 1 |     | chip 2</span>
+<span class="c">AXI </span><span class="nv">&lt;</span><span class="c">=</span><span class="nv">&gt;</span><span class="c"> ChipLink </span><span class="nv">&lt;</span><span class="nb">---------</span><span class="nv">&gt;</span><span class="c"> ChipLink </span><span class="nv">&lt;</span><span class="c">=</span><span class="nv">&gt;</span><span class="c"> AXI</span>
+<span class="c">                   |     |</span>
+<span class="nb">-------------------+</span><span class="c">     </span><span class="nb">+-------------------</span>
+</code></pre></div>
+
+<p class="font-serif my-1">数据位宽减少到8位时, 只需要占用22个引脚</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">但要付出传输带宽的代价: 需要花费更多周期才能完整传输一个请求</li>
+<li class="ml-8">封装成本和传输效率之间的权衡</li>
+</ul></div></section><section data-auto-animate><div><h2 id="chiplink-fpga" class="text-xl mt-2 pb-2 font-sans">ChipLink + FPGA</h2>
+<p class="font-serif my-1">若对端芯片是个FPGA, 还能获得灵活的扩展能力</p>
+<p class="font-serif my-1"><img alt="sifive chiplink" src="./static/img/5da5b0866de54c1b9f518c6b3f268906.jpg"/></p></div></section><section data-auto-animate><div><ul class="list-disc font-serif">
+<li class="ml-8">只需要将设备控制器烧录到FPGA中, 芯片就可以访问这些设备<ul class="list-disc font-serif">
+<li class="ml-8">只要FPGA足够高级, 可以连接现代DDR/PCI-e</li>
+<li class="ml-8">设备控制器有bug也不会带来灾难性的后果, 修复bug后重新烧录即可</li>
+</ul>
+</li>
+<li class="ml-8">缺点: 带宽低(用性能换来的灵活性)</li>
+</ul></div></section></section>
+        </div>
+    </div>
+
+    <script src="./static/reveal/reveal.js"></script>
+
+    <script>
+        Reveal.initialize({
+
+            width: 1024, height: 768,
+
+            slideNumber: 'c/t',
+            controlsTutorial: false,
+            progress: false,
+            hash: true,
+            center: false,
+            autoAnimateUnmatched: true,
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.3,
+            transitionSpeed: 'fast'
+        });
+    </script>
+</body>
+
+</html>
